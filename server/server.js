@@ -1,27 +1,28 @@
-
 import express from 'express';
-import schema from './schema';
-// new dependencies
-import { graphql } from 'graphql';
-import bodyParser from 'body-parser';
+import graphqlHTTP from 'express-graphql';
+import cors from 'cors';
+import { buildSchema } from 'graphql';
 
+const schema = buildSchema(`
+  type Query{
+    content:String,
+    title:String
+  }
+`);
+const rootValue = {
+  content: () => 'Content Management System',
+  title: () => 'CMS',
+};
 const app = express();
-const PORT = 3000;
-
-// parse POST body as text
-app.use(bodyParser.text({ type: 'application/graphql' }));
-
-app.post('/graphql', (req, res) => {
-  // execute GraphQL!
-  graphql(schema, req.body)
-  .then((result) => {
-    res.send(JSON.stringify(result, null, 2));
-  });
-});
-
-const server = app.listen(PORT, () => {
-  const host = server.address().address;
-  const port = server.address().port;
-
-  console.log('GraphQL listening at http://%s:%s', host, port);
-});
+app.options('/graphql', cors());
+app.use('/graphql', graphqlHTTP((request, response) => {
+  response.set('Access-Control-Allow-Origin', '*');
+  console.log(`${request.get('origin')} ${request.method} ${request.get('content-type')} ${response.statusCode}`);
+  return {
+    schema,
+    rootValue,
+    graphiql: true,
+  };
+}));
+const listen = app.listen(8000);
+console.info(`Listen on ${listen.address().address}:${listen.address().port}`);

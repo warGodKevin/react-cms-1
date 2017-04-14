@@ -1,3 +1,4 @@
 *.md
 LICENSE
 *.json
+*.lock
