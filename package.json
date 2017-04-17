@@ -7,7 +7,8 @@
     "start": "node_modules/.bin/webpack-dev-server --open",
     "lint": "node_modules/.bin/eslint ./** --fix",
     "mongo":"node ./server/index.js",
-    "populate": "node server/scripts/insert.js"
+    "populate": "node server/scripts/insert.js",
+    "input":"node ./server/readLine.js"
   },
   "repository": {
     "type": "git",
