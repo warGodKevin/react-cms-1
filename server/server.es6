@@ -27,5 +27,5 @@ app.post('/', (req, res) => {
 
 let server = app.listen(PORT, function () {
   console.log(`Server listening at ${PORT}`);
-  mongoose.connect('mongodb://localhost:8008/test');
+  mongoose.connect('mongodb://ywk888:123456@ds062059.mlab.com:62059/reat-cms');
 });

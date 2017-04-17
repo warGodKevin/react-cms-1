@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import User from '../Models/User/UserSchema.es6';
 import Hobby from '../Models/Hobby/HobbySchema.es6';
 
-mongoose.connect('mongodb://localhost:8008/test');
+mongoose.connect('mongodb://ywk888:123456@ds062059.mlab.com:62059/reat-cms');
 
 let hobbyCycling = new Hobby({
   title:'cycling',
